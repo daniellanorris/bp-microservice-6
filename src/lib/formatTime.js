@@ -1,6 +1,6 @@
 
 
-export function formatTime(time, displaySeconds = false, hour12 = true, displayAmPm = true) {
+export function formatTime(time) {
     // Time input as string
     if (typeof time !== 'string') return null;
 
@@ -14,48 +14,39 @@ export function formatTime(time, displaySeconds = false, hour12 = true, displayA
     const hour = Number(formatMatch[1]);
     const minute = Number(formatMatch[2]);
 
-    // seconds are optional, default to 0
+    // If seconds are in format, else set to 0
+    const hasSeconds = formatMatch[3] !== undefined;
     const seconds = Number(formatMatch[3] ?? 0);
 
     // Validate each time component
     if (hour >= 24 || minute >= 60 || seconds >= 60) return null;
 
-    let displayHours = hour;
-    let timePeriod = ''; 
+    // Determine AM/PM and 12-hour display hour
+    const timePeriod = '';
 
-    //  convert to 12 hour format
-    if (hour12) {
-        if (hour < 12) {
-            timePeriod = 'AM';
-        } else {
-            timePeriod = 'PM';
-        }
-        displayHours = hour % 12 || 12;
+    // Check for time period
+    if (hour < 12) {
+        timePeriod = 'AM';
+    } else {
+        timePeriod = 'PM';
     }
 
-    // format time
-    const hh = hour12
-        ? String(displayHours)
-        : String(displayHours).padStart(2, '0');
+    const displayHours = hour % 12 || 12;
+
+    // Format time to HH:MM:SS
+    const hh = String(displayHours);
     const mm = String(minute).padStart(2, '0');
     const ss = String(seconds).padStart(2, '0');
 
-    let result = ``;
-
-    // If displaySeconds, set format to HH:MM:SS
-    if (displaySeconds) {
-        result = `${hh}:${mm}:${ss}`;
+    // Format time with seconds
+    if (hasSeconds) {
+        formattedTime = `${hh}:${mm}:${ss}`;
     } else {
-        result = `${hh}:${mm}`;
+        formattedTime = `${hh}:${mm}`;
     }
+    
+    return `${formattedTime} ${timePeriod}`;
 
-    // Add AM/PM to final format
-    if (hour12 && displayAmPm) {
-        result += ` ${timePeriod}`;
-    }
-
-    // Return the formatted time
-    return result;
 }
 
 
