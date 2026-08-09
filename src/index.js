@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import { formatDate } from "./lib/formatDate.js";
+import { formatTime } from "./lib/formatTime.js"
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
 
@@ -68,7 +69,7 @@ app.get('/', (req, res) => {
  */
 app.post('/format-date', (req, res) => {
     try {
-        const date = req.body;
+        const { date } = req.body;
 
         console.log("Request body:", req.body);
         console.log("Date:", date);
@@ -80,6 +81,8 @@ app.post('/format-date', (req, res) => {
         }
 
         const data = formatDate(date);
+
+        console.log("data:", data);
 
         if (!data) {
             return res.status(400).json({
@@ -99,6 +102,65 @@ app.post('/format-date', (req, res) => {
         });
     }
 });
+
+
+
+/**
+ * @swagger
+ * /format-time:
+ *   post:
+ *     summary: Format a time from 12 hour to 24 hour time
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         text/plain:
+ *           schema:
+ *             type: string
+ *             example: 12:00
+ *     responses:
+ *       200:
+ *         description: Time formatted successfully
+ *       400:
+ *         description: Time is required
+ *       500:
+ *         description: Unable to format time
+ */
+app.post('/format-time', (req, res) => {
+    try {
+        const { time } = req.body;
+
+        console.log("Request body:", req.body);
+        console.log("Time:", time);
+
+        if (!time) {
+            return res.status(400).json({
+                error: "Time is required"
+            });
+        }
+
+        const data = formatTime(time);
+
+        console.log("data:", data);
+
+        if (!data) {
+            return res.status(400).json({
+                error: "Invalid time format"
+            });
+        }
+
+        return res.status(200).json({
+            formattedTime: data
+        });
+
+    } catch (error) {
+        console.error("Format time route error:", error);
+
+        return res.status(500).json({
+            error: "Unable to format time"
+        });
+    }
+});
+
 
 app.listen(process.env.LOCALHOST, () => {
     console.log('Listening on port', process.env.LOCALHOST);
