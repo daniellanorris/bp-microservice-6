@@ -37,6 +37,8 @@ export function formatTime(time) {
     const hh = String(displayHours);
     const mm = String(minute).padStart(2, '0');
     const ss = String(seconds).padStart(2, '0');
+    
+    const formattedTime = '';
 
     // Format time with seconds
     if (hasSeconds) {
@@ -44,9 +46,8 @@ export function formatTime(time) {
     } else {
         formattedTime = `${hh}:${mm}`;
     }
-    
-    return `${formattedTime} ${timePeriod}`;
 
+    return `${formattedTime} ${timePeriod}`;
 }
 
 
