@@ -68,7 +68,7 @@ app.get('/', (req, res) => {
  */
 app.post('/format-date', (req, res) => {
     try {
-        const date = req.body;
+        const { date } = req.body;
 
         console.log("Request body:", req.body);
         console.log("Date:", date);
@@ -80,6 +80,8 @@ app.post('/format-date', (req, res) => {
         }
 
         const data = formatDate(date);
+
+        console.log("data:", data);
 
         if (!data) {
             return res.status(400).json({
@@ -99,7 +101,6 @@ app.post('/format-date', (req, res) => {
         });
     }
 });
-
 app.listen(process.env.LOCALHOST, () => {
     console.log('Listening on port', process.env.LOCALHOST);
 });
