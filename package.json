@@ -1,0 +1,28 @@
+{
+  "name": "bp-microservice-6",
+  "version": "1.0.0",
+  "description": "date-time formatter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniellanorris/bp-microservice-6.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daniellanorris/bp-microservice-6/issues"
+  },
+  "homepage": "https://github.com/daniellanorris/bp-microservice-6#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "keywords": []
+}
