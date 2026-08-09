@@ -18,13 +18,12 @@ export function formatTime(time) {
     const hasSeconds = formatMatch[3] !== undefined;
     const seconds = Number(formatMatch[3] ?? 0);
 
-    // Validate each time component
+    // Validate hour, minute, and seconds
     if (hour >= 24 || minute >= 60 || seconds >= 60) return null;
 
-    // Determine AM/PM and 12-hour display hour
-    const timePeriod = '';
+    let timePeriod = '';
 
-    // Check for time period
+    // Check for time period based on hour
     if (hour < 12) {
         timePeriod = 'AM';
     } else {
@@ -37,8 +36,8 @@ export function formatTime(time) {
     const hh = String(displayHours);
     const mm = String(minute).padStart(2, '0');
     const ss = String(seconds).padStart(2, '0');
-    
-    const formattedTime = '';
+
+    let formattedTime = '';
 
     // Format time with seconds
     if (hasSeconds) {
@@ -49,5 +48,3 @@ export function formatTime(time) {
 
     return `${formattedTime} ${timePeriod}`;
 }
-
-
